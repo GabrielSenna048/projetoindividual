@@ -11,42 +11,37 @@
   <script src="./js/sessao.js"></script>
 
   <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="./../projetoindividual/css/imagens/FIFA-Logo.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
 <body onload="listar()">
-     <!-- Navbar -->
+     <!-- Navbar
     <div class="header">
         <div class="container">
             <ul class="navbar">
-                <li><img onclick="imgnav()" src="../public/css/imagens/FIFA-Logo.png" alt=""></li>
+                <li><img onclick="imgnav()" src="./../projetoindividual/css/imagens/FIFA-Logo.png" alt=""></li>
                 
 
             </ul>
         </div>
-    </div>
+    </div> -->
 
     <!-- Fim navbar -->
 
-  <div class="login">
+  <div class="cadastro">
     <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
+      
     </div>
     <div class="container">
-      <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
+      <div class="card-cadastro">
+        <h2 onclick="imgnav">Seja Bem-vindo ao site de <p> fifa</p></h2>
         <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <div class="campo">
+        
+          <!-- <div class="campo">
             <span>Código de ativação:</span>
             <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
+          </div> -->
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
@@ -63,10 +58,13 @@
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
+          <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
         <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+          <img src="../projetoindividual/assets/circle-loading.gif" id="loading-gif" />
         </div>
 
         <div id="div_erros_login"></div>
@@ -75,12 +73,12 @@
   </div>
 
   <!--footer inicio-->
-  <div class="footer">
+  <!-- <div class="footer">
     <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
+      <h4>Feito com amor por Gabriel Senna, SPTech &copy; 2025</h4>
       <span class="version">v1.0.0</span>
     </div>
-  </div>
+  </div> -->
   <!--footer fim-->
 </body>
 
@@ -102,7 +100,6 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
     var idEmpresaVincular
 
     // Verificando se há algum campo em branco
@@ -110,12 +107,12 @@
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
+      confirmacaoSenhaVar == "" 
+      
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        "(Erro: Todos campos estão em branco)";
 
       finalizarAguardar();
       return false;

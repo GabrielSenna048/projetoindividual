@@ -452,3 +452,139 @@ input {
     transform: rotate(25deg)
   }
 }
+
+/* Inicio cadastro */
+
+.cadastro {
+  height: var(--tamanho-login);
+  background-image: url(../css/imagens/HD-wallpaper-ea-sports-fc-24.jpg);
+  background-size: cover;
+  
+}
+
+.cadastro .container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.card-cadastro p{
+  color: #005390;
+}
+.card-cadastro h2{
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  margin-top: 20px;
+}
+.card {
+  width: 50%;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: palevioletred;
+  flex-direction: column;
+  height: fit-content;
+  padding: 20px 0;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 30px;
+  color: white;
+}
+
+.formulario {
+  position: relative;
+  margin-top: 65px;
+  display: flex;
+  height: 800px;
+  width: 600px;
+  justify-content: space-around;
+  flex-direction: column;
+  border: #000 solid 10px;
+  border-radius: 15px;
+  align-self: column;
+  margin-left: 35px;
+ background-color: whitesmoke;
+}
+.formulario .card_erro{
+ display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: black 3px solid;
+  padding: 10px;
+  margin-left: 200px;
+  margin-top: 300px;
+}
+
+.formulario .card_erro #mensagem_erro {
+  font-weight: 500;
+  font-size: 20px;
+}
+.formulario span {
+  font-size: 20px;
+  font-weight: 800;
+  margin-left: 30px;
+}
+
+.formulario input {
+  border: 5px solid black;
+  text-align: center;
+  border-radius: 10px;
+  margin: 0;
+  width: 400px;
+  margin-left: 80px;
+  margin-top: 50px;
+  
+}
+
+.formulario select {
+  border: 2px solid #32b9cd;
+  color: gray;
+  height: 36px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 5px 0;
+}
+
+.botao {
+  cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 25px;
+  color: #fff;
+  background-color: black;
+  width: 200px;
+  height: 60px;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.loading-div {
+  width: 50px;
+  display: none;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
+}
+
+#div_erros_login {
+  display: none
+}
