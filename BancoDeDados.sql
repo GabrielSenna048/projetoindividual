@@ -14,10 +14,10 @@ CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
 	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_quiz INT,
-	FOREIGN KEY (fk_quiz) REFERENCES quiz(id)
+	senha VARCHAR(50)
+	
 );
+select * from usuario;
 
 CREATE TABLE aviso (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,3 +48,4 @@ insert into quiz (pontuacao) values ('80');
 insert into quiz (pontuacao) values ('50');
 insert into corinthians (nivelTorcedor, fk_quiz) values ('Fanático', 1);
 insert into corinthians (nivelTorcedor, fk_quiz) values ('Apenas vê os jogos', 2);
+
