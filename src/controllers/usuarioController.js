@@ -1,6 +1,6 @@
 const usuarioModel = require("../models/usuarioModel");
 const cornthiansModel = require("../models/corinthiansModel");
-const bcrypt = require("bcryptjs"); 
+const bcrypt = require('bcryptjs');
 
 // autenticar
 async function autenticar(req, res) {
@@ -40,8 +40,8 @@ async function autenticar(req, res) {
           // fallback (caso o banco esteja armazenando senha em plain text - não recomendado)
           senhaValida = senha === usuario.senha;
         }
-      } else if (usuario.senha_hash) {
-        senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+      } else if (usuario.senha) {
+        senhaValida = await bcrypt.compare(senha, usuario.senha);
       } else {
         // Se o model já validou e retornou o usuário, consideramos válido.
         // Mas para segurança, preferimos falhar explicitamente:
@@ -98,7 +98,7 @@ async function cadastrar(req, res) {
     const nome = req.body.nomeServer;
     const email = req.body.emailServer;
     const senha = req.body.senhaServer;
-    const fkQuiz = req.body.idEmpresaVincularServer; // campo vindo do front
+    const fkQuiz = req.body.idQuizVincularServer; // campo vindo do front
 
     if (nome == undefined) {
       return res.status(400).send("Seu nome está undefined!");
@@ -113,15 +113,13 @@ async function cadastrar(req, res) {
       return res.status(400).send("Seu quiz está undefined!");
     }
 
-    // Hash da senha antes de salvar (bcrypt)
+    
     const saltRounds = 10;
     const senhaHash = await bcrypt.hash(senha, saltRounds);
 
-    // chame o model para cadastrar e passe o fkQuiz também
-    // Recomendo que usuarioModel.cadastrar aceite (nome, email, senhaHash, fkQuiz)
+    
     const resultado = await usuarioModel.cadastrar(nome, email, senhaHash, fkQuiz);
 
-    // não retornar senha/hash no JSON
     return res.json(resultado);
   } catch (erro) {
     console.error(erro);

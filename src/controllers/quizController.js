@@ -1,15 +1,15 @@
-var empresaModel = require("../models/empresaModel");
+var quizModel = require("../models/quizModel");
 
-function buscarPorCnpj(req, res) {
-  var cnpj = req.query.cnpj;
+function buscarPorPontuacao(req, res) {
+  var pontuacao = req.query.pontuacao;
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+  quizModel.buscarPorPontuacao(pontuacao).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
 
 function listar(req, res) {
-  empresaModel.listar().then((resultado) => {
+  quizModel.listar().then((resultado) => {
     res.status(200).json(resultado);
   });
 }
@@ -17,22 +17,22 @@ function listar(req, res) {
 function buscarPorId(req, res) {
   var id = req.params.id;
 
-  empresaModel.buscarPorId(id).then((resultado) => {
+  quizModel.buscarPorId(id).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
 
 function cadastrar(req, res) {
-  var cnpj = req.body.cnpj;
-  var razaoSocial = req.body.razaoSocial;
+  var pontuacao = req.body.Pontuacao;
+  var dtquiz = req.body.dtquiz;
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+  quizModel.buscarPorpontuacao(pontuacao).then((resultado) => {
     if (resultado.length > 0) {
       res
         .status(401)
-        .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` });
+        .json({ mensagem: `a quiz com o pontuacao ${pontuacao} já existe` });
     } else {
-      empresaModel.cadastrar(razaoSocial, cnpj).then((resultado) => {
+      quizModel.cadastrar(dtquiz, pontuacao).then((resultado) => {
         res.status(201).json(resultado);
       });
     }
@@ -40,7 +40,7 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarPorCnpj,
+  buscarPorPontuacao,
   buscarPorId,
   cadastrar,
   listar,

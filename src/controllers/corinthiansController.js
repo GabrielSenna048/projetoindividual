@@ -3,7 +3,7 @@ var corinthiansModel = require("../models/corinthiansModel");
 function buscarCorinthiansPorEmpresa(req, res) {
   var idUsuario = req.params.idUsuario;
 
-  aquarioModel.buscarCorinthiansPorEmpresa(idUsuario).then((resultado) => {
+  corinthiansModel.buscarCorinthiansPorEmpresa(idUsuario).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

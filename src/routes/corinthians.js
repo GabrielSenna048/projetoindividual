@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
-var aquarioController = require("../controllers/corinthiansController");
+var corinthiansController = require("../controllers/corinthiansController");
 
 router.get("/:quizId", function (req, res) {
-  aquarioController.buscarCorinthianssPorEmpresa(req, res);
+  corinthiansController.buscarCorinthianssPorEmpresa(req, res);
 });
 
 router.post("/cadastrar", function (req, res) {
