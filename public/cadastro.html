@@ -10,12 +10,12 @@
 
   <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="../public/css/estilo.css" />
+  <link rel="stylesheet" href="/css/estilo.css">
   <link rel="icon" href="./../projetoindividual/css/imagens/FIFA-Logo.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="listar()">
+<body >
      <!-- Navbar
     <div class="header">
         <div class="container">
@@ -58,13 +58,14 @@
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
-          <div style="display: flex; justify-content: center;"  id="cardErro">
+          <div style="display: flex; justify-content: center;" id="cardErro"></div>
+          <div   id="mensagem_erro">
         
       </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
         <div id="div_aguardar" class="loading-div">
-          <img src="../projetoindividual/assets/circle-loading.gif" id="loading-gif" />
+       
         </div>
 
         <div id="div_erros_login"></div>
@@ -116,7 +117,7 @@
     } else {
       alert('Dados cadastrados com sucesso');
     
-      setInterval(sumirMensagem, 5000);
+      
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
@@ -133,43 +134,42 @@
     // }
 
     // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-       
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+fetch("/usuarios/cadastrar", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    nomeServer: nomeVar,
+    emailServer: emailVar,
+    senhaServer: senhaVar
+  })
+})
+.then(async (res) => {
+  // tenta ler JSON, se não for JSON lê como texto
+  const ct = res.headers.get("content-type") || "";
+  const body = ct.includes("application/json") ? await res.json() : await res.text();
 
-        if (resposta.ok) {
-          cardErro.style.display = "block";
+  console.log("Status:", res.status);
+  console.log("Resposta do servidor:", body);
 
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+  if (res.ok) {
+    cardErro.style.display = "block";
+    mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+    setTimeout(() => (window.location = "login.html"), 2000);
+    limparFormulario();
+    finalizarAguardar();
+  } else {
+    // mostra a mensagem que o servidor retornou (se houver)
+    const msg = (body && (body.erro || body.error || body.message)) || body || `Erro ${res.status}`;
+    throw new Error(msg);
+  }
+})
+.catch((err) => {
+  console.error("#ERRO no fetch:", err);
+  cardErro.style.display = "block";
+  mensagem_erro.innerHTML = err.message || err;
+  finalizarAguardar();
+});
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
 
     return false;
   }
