@@ -1,46 +1,32 @@
 const usuarioModel = require("../models/usuarioModel");
 
 // LOGIN
+// LOGIN
 async function autenticar(req, res) {
   try {
     const email = req.body.emailServer;
     const senha = req.body.senhaServer;
 
-    if (email == undefined) {
-      return res.status(400).send("Seu email está undefined!");
-    }
-    if (senha == undefined) {
-      return res.status(400).send("Sua senha está undefined!");
-    }
+    if (!email) return res.status(400).send("Seu email está undefined!");
+    if (!senha) return res.status(400).send("Sua senha está indefinida!");
 
-    // procura o usuário pelo email e senha (SEM HASH)
-    const resultadoAutenticar = await usuarioModel.autenticar(email, senha);
+    const resultado = await usuarioModel.autenticar(email, senha);
 
-    console.log("Resultados: ", resultadoAutenticar);
-
-    if (resultadoAutenticar.length === 1) {
-      const usuario = resultadoAutenticar[0];
-
-      // como a senha não é hash, só comparar diretamente
-      if (usuario.senha !== senha) {
-        return res.status(403).send("Email e/ou senha inválido(s)");
-      }
+    if (resultado.length === 1) {
+      const usuario = resultado[0];
 
       return res.json({
         id: usuario.id,
         nome: usuario.nome,
         email: usuario.email
       });
-
-    } else if (resultadoAutenticar.length === 0) {
-      return res.status(403).send("Email e/ou senha inválido(s)");
     } else {
-      return res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+      return res.status(403).send("Email e/ou senha inválido(s)");
     }
 
   } catch (erro) {
-    console.error("Erro no login:", erro);
-    return res.status(500).json({ error: erro.sqlMessage ?? erro.message });
+    console.error(erro);
+    return res.status(500).json({ error: erro.sqlMessage || erro.message });
   }
 }
 
@@ -55,7 +41,7 @@ async function cadastrar(req, res) {
     if (email == undefined) return res.status(400).send("Seu email está undefined!");
     if (senha == undefined) return res.status(400).send("Sua senha está undefined!");
 
-    // salva senha normal, sem hash
+    
     const resultado = await usuarioModel.cadastrar(nome, email, senha);
 
     return res.json(resultado);

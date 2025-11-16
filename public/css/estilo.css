@@ -329,9 +329,7 @@ body {
   width: 50px;
 }
 
-#div_erros_login {
-  display: none
-}
+
 
 /* FORMULARIO */
 
@@ -601,6 +599,3 @@ input {
   width: 50px;
 }
 
-#div_erros_login {
-  display: none
-}
