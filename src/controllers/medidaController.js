@@ -4,11 +4,11 @@ function buscarUltimasMedidas(req, res) {
 
     const limite_linhas = 7;
 
-    var idCorinthians = req.params.idCorinthians;
+    var idTorcedor = req.params.idTorcedor;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarUltimasMedidas(idCorinthians, limite_linhas).then(function (resultado) {
+    medidaModel.buscarUltimasMedidas(idTorcedor, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -24,11 +24,11 @@ function buscarUltimasMedidas(req, res) {
 
 function buscarMedidasEmTempoReal(req, res) {
 
-    var idCorinthians = req.params.idCorinthians;
+    var idTorcedor = req.params.idTorcedor;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(idCorinthians).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoReal(idTorcedor).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

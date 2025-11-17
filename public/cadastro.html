@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Fifa | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
@@ -91,88 +91,74 @@
   }
   
 
-  function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+ function cadastrar() {
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-    // Verificando se há algum campo em branco
+    
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" 
-      
     ) {
       cardErro.innerHTML = `<p style="color: red;"> Todos os campos estão vazios</p>`
-      
-
       finalizarAguardar();
       return false;
-    } else {
-      alert('Dados cadastrados com sucesso');
-    
-      
     }
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-    //   if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-    //     idEmpresaVincular = listaEmpresasCadastradas[i].id
-    //     console.log("Código de ativação válido.");
-    //     break;
-    //   } else {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-    //     finalizarAguardar();
-    //   }
-    // }
+    
+    if (!emailVar.includes("@") || !emailVar.includes(".")) {
+      cardErro.innerHTML = `<p style="color: red;">Digite um e-mail válido.</p>`;
+      finalizarAguardar();
+      return false;
+    }
 
-    // Enviando o valor da nova input
-fetch("/usuarios/cadastrar", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    nomeServer: nomeVar,
-    emailServer: emailVar,
-    senhaServer: senhaVar
-  })
-})
-.then(async (res) => {
-  // tenta ler JSON, se não for JSON lê como texto
-  const ct = res.headers.get("content-type") || "";
-  const body = ct.includes("application/json") ? await res.json() : await res.text();
+    if (senhaVar !== confirmacaoSenhaVar) {
+      cardErro.innerHTML = `<p style="color: red;">As senhas não coincidem.</p>`;
+      finalizarAguardar();
+      return false;
+    }
 
-  console.log("Status:", res.status);
-  console.log("Resposta do servidor:", body);
+    alert('Dados cadastrados com sucesso');
 
-  if (res.ok) {
-    cardErro.style.display = "block";
-    mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-    setTimeout(() => (window.location = "login.html"), 2000);
-    limparFormulario();
-    finalizarAguardar();
-  } else {
-    // mostra a mensagem que o servidor retornou (se houver)
-    const msg = (body && (body.erro || body.error || body.message)) || body || `Erro ${res.status}`;
-    throw new Error(msg);
-  }
-})
-.catch((err) => {
-  console.error("#ERRO no fetch:", err);
-  cardErro.style.display = "block";
-  mensagem_erro.innerHTML = err.message || err;
-  finalizarAguardar();
-});
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    })
+    .then(async (res) => {
+      const ct = res.headers.get("content-type") || "";
+      const body = ct.includes("application/json") ? await res.json() : await res.text();
 
+      console.log("Status:", res.status);
+      console.log("Resposta do servidor:", body);
+
+      if (res.ok) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+        setTimeout(() => (window.location = "login.html"), 2000);
+        finalizarAguardar();
+      } else {
+        const msg = (body && (body.erro || body.error || body.message)) || body || `Erro ${res.status}`;
+        throw new Error(msg);
+      }
+    })
+    .catch((err) => {
+      console.error("#ERRO no fetch:", err);
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = err.message || err;
+      finalizarAguardar();
+    });
 
     return false;
-  }
+}
 
   // Listando empresas cadastradas 
   // function listar() {

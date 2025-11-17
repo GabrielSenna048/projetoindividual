@@ -1,14 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
-var corinthiansController = require("../controllers/corinthiansController");
+var torcedorController = require("../controllers/torcedorController");
 
 router.get("/:quizId", function (req, res) {
-  corinthiansController.buscarCorinthianssPorEmpresa(req, res);
+  torcedorController.buscarTorcedorPorEmpresa(req, res);
 });
 
 router.post("/cadastrar", function (req, res) {
-  corinthiansController.cadastrar(req, res);
+  torcedorController.cadastrar(req, res);
 })
 
 module.exports = router;

@@ -1,34 +1,32 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idCorinthians, limite_linhas) {
+function buscarUltimasMedidas(idTorcedor, limite_linhas) {
 
     var instrucaoSql = `
-    SELECT 
-        qntAmor AS nivel,
-        momento,
-        DATE_FORMAT(momento, '%H:%i:%s') AS momento_grafico
-    FROM medida
-    WHERE fk_corinthians = ${idCorinthians}
-    ORDER BY id DESC
-    LIMIT ${limite_linhas};
-`;
+        SELECT 
+            nivelTorcedor AS nivel,
+            fk_quiz
+        FROM torcedor
+        WHERE id = ${idTorcedor}
+        ORDER BY id DESC
+        LIMIT ${limite_linhas};
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idCorinthians) {
+function buscarMedidasEmTempoReal(idTorcedor) {
 
-var instrucaoSql = `
-    SELECT 
-        qntAmor AS nivel,
-        DATE_FORMAT(momento, '%H:%i:%s') AS momento_grafico,
-        fk_corinthians
-    FROM medida
-    WHERE fk_corinthians = ${idCorinthians}
-    ORDER BY id DESC
-    LIMIT 1;
-`;
+    var instrucaoSql = `
+        SELECT 
+            nivelTorcedor AS nivel,
+            fk_quiz
+        FROM torcedor
+        WHERE id = ${idTorcedor}
+        ORDER BY id DESC
+        LIMIT 1;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -37,4 +35,4 @@ var instrucaoSql = `
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal
-}
+};

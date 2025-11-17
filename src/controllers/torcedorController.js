@@ -1,9 +1,9 @@
-var corinthiansModel = require("../models/corinthiansModel");
+var torcedorModel = require("../models/torcedorModel");
 
-function buscarCorinthiansPorEmpresa(req, res) {
+function buscarTorcedorPorEmpresa(req, res) {
   var idUsuario = req.params.idUsuario;
 
-  corinthiansModel.buscarCorinthiansPorEmpresa(idUsuario).then((resultado) => {
+  torcedorModel.buscarTorcedorPorEmpresa(idUsuario).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -11,7 +11,7 @@ function buscarCorinthiansPorEmpresa(req, res) {
     }
   }).catch(function (erro) {
     console.log(erro);
-    console.log("Houve um erro ao buscar os aquarios: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar os torcedores: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
 }
@@ -28,7 +28,7 @@ function cadastrar(req, res) {
   } else {
 
 
-    corinthiansModel.cadastrar(descricao, idUsuario)
+    torcedorModel.cadastrar(descricao, idUsuario)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
@@ -44,6 +44,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarCorinthiansPorEmpresa,
+  buscarTorcedorPorEmpresa,
   cadastrar
 }
