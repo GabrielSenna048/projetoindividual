@@ -105,18 +105,9 @@ body {
 .header-quiz {
   width: 100%;
   height: 900px;
-  
+  background-color: #32b9cd;
 
 }
-
-
-
-
-
-
-
-
-
 
 .botao-quiz{
  cursor: pointer;
@@ -133,7 +124,63 @@ body {
   margin-top: 20px;
   margin-left: 820px;
 }
-
+.container-quiz select{
+display: none;
+padding: 10px;
+margin-left: 40%;
+cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 25px;
+  color: #fff;
+  background-color: black;
+  width: 25 0px;
+  height: 60px;
+  align-self: center;
+}
+.container-quiz{
+  display: none;
+  height: 700px;
+  width: 1200px;
+  background-color: blue;
+  border: #000 solid 10px;
+  border-radius: 6px;
+  margin-top: 50px;
+  margin-left: 300px;
+    padding: 10px;
+}
+.container-quiz img{
+  height: 200px;
+  width: 200px;
+  margin-left: 300px;
+}
+.container-quiz p{
+  margin-top: 50px;
+  font-family: "Barlow", sans-serif;
+  font-weight: 1000;
+align-self: column  ;
+font-size: 30px;
+}
+.div-times{
+margin-top: 300px;
+padding: 10px;
+cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 25px;
+  color: #fff;
+  background-color: black;
+  width: 25 0px;
+  height: 60px;
+  align-self: center;
+}
+.perguntas-quiz{
+  display: none;
+}
 /* Fim história */
 
 /* Inicio sobre */
