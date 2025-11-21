@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body >
-     <!-- Navbar
+<body>
+  <!-- Navbar
     <div class="header">
         <div class="container">
             <ul class="navbar">
@@ -27,17 +27,18 @@
         </div>
     </div> -->
 
-    <!-- Fim navbar -->
+  <!-- Fim navbar -->
 
   <div class="cadastro">
     <div class="alerta_erro">
-      
+
     </div>
     <div class="container">
       <div class="card-cadastro">
-        <h2 onclick="imgnav">Seja Bem-vindo ao site de <p> fifa </p></h2>
-        <div class="formulario">
-        
+        <h2 onclick="imgnav">Seja Bem-vindo ao site de <p> fifa </p>
+        </h2>
+        <div id="div_formulario" class="formulario">
+
           <!-- <div class="campo">
             <span>Código de ativação:</span>
             <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
@@ -59,19 +60,186 @@
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
           <div style="display: flex; justify-content: center;" id="cardErro"></div>
-          <div   id="mensagem_erro">
-        
-      </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+          <div id="mensagem_erro">
+
+          </div>
+          <button onclick="mostrar()" class="botao-quiz">Seguinte</button>
+          <button class="botao-quiz" onclick="voltar()">Voltar para o inicio</button>
+          
+          
         </div>
         <div id="div_aguardar" class="loading-div">
-       
+
         </div>
 
         <div id="div_erros_login"></div>
       </div>
     </div>
+    <div>
+      <!-- Início quiz -->
+      <div id="quiz" class="header-quiz">
+
+        <div id="container_quiz" class="container-quiz">
+          <select class="select_time" onclick="mostrar()" id="select_time">
+            <option selected disabled value="">Selecione seu time</option>
+            <option value="1">Corinthians</option>
+            <option value="2">Palmeiras</option>
+            <option value="3">São paulo</option>
+            <option value="4">Santos</option>
+            <option value="5">Vasco</option>
+            <option value="6">Flamengo</option>
+            <option value="7">Fluminense</option>
+            <option value="8">Cruzeiro</option>
+            <option value="9">Grêmio</option>
+            <option value="10">Internacional</option>
+
+          </select>
+          <div style="display: none;" id="div_corinthians">
+            <p>Fundado em 1910, o Corinthians é um dos clubes mais populares e vitoriosos do Brasil, com uma vasta
+              torcida.
+              Tem grandes conquistas, como a Copa Libertadores de 2012 e o Mundial de Clubes da FIFA em 2000 e 2012. O
+              time
+              tem uma rivalidade histórica com o Palmeiras, Santos e São Paulo.</p>
+            <img src="css/imagens/escudo-Corinthians.webp" alt="">
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_palmeiras">
+            <p>Fundado em 1914, o Palmeiras é um dos clubes mais bem-sucedidos do Brasil, com um grande número de
+              títulos,
+              incluindo a Copa Libertadores (2020, 2022). A rivalidade com o Corinthians é intensa, sendo um dos maiores
+              clássicos do futebol paulista.</p>
+            <img src="css/imagens/palmeiras.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_saopaulo">
+            <p>Fundado em 1930, o São Paulo é um dos clubes mais prestigiados do Brasil, com vários títulos nacionais e
+              internacionais, incluindo a Copa Libertadores e o Mundial de Clubes. Seu estádio, o Morumbi, é um dos
+              maiores
+              do país. A rivalidade com Palmeiras e Corinthians é histórica.</p>
+            <img src="css/imagens/saopaulo.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_santos">
+            <p>Fundado em 1912, o Santos é conhecido mundialmente por sua relação com Pelé, considerado o maior jogador
+              de
+              futebol de todos os tempos. O time possui uma das maiores torcidas do Brasil e uma rica história de
+              títulos
+              nacionais e internacionais.</p>
+            <img src="css/imagens/santos.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_vasco">
+            <p>Fundado em 1898, o Vasco é um dos clubes de maior tradição do Brasil, com uma enorme torcida e várias
+              conquistas nacionais, como o Campeonato Brasileiro. A rivalidade com Flamengo e Fluminense é intensa,
+              especialmente no Rio de Janeiro.</p>
+            <img src="css/imagens/vasco.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_flamengo">
+            <p>Fundado em 1895, o Flamengo é um dos clubes mais populares e vitoriosos do Brasil, com uma base de fãs
+              espalhada por todo o país. O time tem uma rivalidade histórica com o Fluminense, Vasco e Botafogo, e já
+              conquistou inúmeros títulos, incluindo a Copa Libertadores e o Mundial de Clubes.</p>
+            <img src="css/imagens/flamengo.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_fluminense">
+            <p>Fundado em 1902, o Fluminense é um dos clubes mais tradicionais do Brasil, com uma grande história no
+              futebol. O time tem uma grande rivalidade com Flamengo e Vasco. O Fluminense é conhecido por seu estilo de
+              jogo técnico e por suas grandes gerações de jogadores.</p>
+            <img src="css/imagens/fluminense.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_cruzeiro">
+            <p>Fundado em 1921, o Cruzeiro é um dos clubes mais vitoriosos de Minas Gerais e do Brasil. Com várias
+              conquistas nacionais e internacionais, o Cruzeiro tem uma grande base de torcedores e rivaliza com times
+              como
+              Atlético-MG e Flamengo.</p>
+            <img src="css/imagens/cruzeiro.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_gremio">
+            <p>Fundado em 1903, o Grêmio é um dos clubes mais tradicionais do Brasil, com uma forte base de torcedores
+              no
+              sul do país. O time tem uma grande história de títulos nacionais e internacionais, incluindo a Copa
+              Libertadores.</p>
+            <img src="css/imagens/gremio.webp" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div  style="display: none;" id="div_internacional">
+            <p>Fundado em 1909, o Internacional, também conhecido como Inter, é um dos maiores clubes do sul do Brasil.
+              Com
+              várias conquistas nacionais e internacionais, incluindo a Copa Libertadores e o Mundial de Clubes, o time
+              tem
+              uma rivalidade forte com o Grêmio no clássico "Grenal".</p>
+            <img src="css/imagens/internacional.png" alt="">
+
+            <button class="div-times" onclick="selecionar()">Selecionar time</button>
+          </div>
+          <div class="perguntas-quiz" id="perguntas1_div">
+            <span>Vai ao estádio do seu time uma vez ao mês?</span>
+            <select class="div-times" onclick="proxima()" id="select_pergunta1">
+              <option selected disabled value="">Selecione uma opção</option>
+              <option value="0">Não</option>
+              <option value="20">Sim</option>
+
+            </select>
+
+          </div>
+
+          <div class="perguntas-quiz" id="perguntas2_div">
+            <span>Segue jogadores ou clubes nas redes sociais?</span>
+            <select class="div-times" onclick="proxima2()" id="select_pergunta2">
+              <option selected disabled value="">Selecione uma opção</option>
+              <option value="0">Não</option>
+              <option value="20">Sim</option>
+            </select>
+
+          </div>
+
+          <div class="perguntas-quiz" id="perguntas3_div">
+            <span>Assiste aos jogos do seu time toda semana?</span>
+            <select class="div-times" onclick="proxima3()" id="select_pergunta3">
+              <option selected disabled value="">Selecione uma opção</option>
+              <option value="0">Não</option>
+              <option value="20">Sim</option>
+            </select>
+
+          </div>
+
+          <div class="perguntas-quiz" id="perguntas4_div">
+            <span>Já fez parte de alguma torcida organizada?</span>
+            <select class="div-times" onclick="proxima4()" id="select_pergunta4">
+              <option selected disabled value="">Selecione uma opção</option>
+              <option value="0">Não</option>
+              <option value="20">Sim</option>
+            </select>
+
+          </div>
+
+          <div class="perguntas-quiz" id="perguntas5_div">
+            <span>Já participou de algum programa de sócio-torcedor?</span>
+            <select class="div-times"  id="select_pergunta5">
+              <option selected disabled value="">Selecione uma opção</option>
+              <option value="0">Não</option>
+              <option value="20">Sim</option>
+            </select>
+            <button id="button_cadastro" class="botao" onclick="cadastrar()">Cadastrar</button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
+
 
   <!--footer inicio-->
   <!-- <div class="footer">
@@ -86,30 +254,249 @@
 </html>
 
 <script>
-  function imgnav(){
+  function voltar(){
     window.location.href = 'index.html';
   }
-  
-
- function cadastrar() {
+    function mostrar() {
+    var select = select_time.value;
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-    
+
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" 
+      confirmacaoSenhaVar == ""
+    ) {
+      cardErro.innerHTML = `<p style="color: red;"> Todos os campos estão vazios</p>`
+      finalizarAguardar();
+      return false;
+    }
+   
+
+    div_formulario.style.display = 'none';
+    select_time.style.display = 'block';
+    container_quiz.style.display = 'block';
+    if (select == '1') {
+      div_corinthians.style.display = 'block'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '2') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'block'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '3') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'block'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '4') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'block'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '5') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'block'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '6') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'block'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '7') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'block'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '8') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'block'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '9') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'block'
+      div_internacional.style.display = 'none'
+    }
+    if (select == '10') {
+      div_corinthians.style.display = 'none'
+      div_palmeiras.style.display = 'none'
+      div_saopaulo.style.display = 'none'
+      div_santos.style.display = 'none'
+      div_vasco.style.display = 'none'
+      div_flamengo.style.display = 'none'
+      div_fluminense.style.display = 'none'
+      div_cruzeiro.style.display = 'none'
+      div_gremio.style.display = 'none'
+      div_internacional.style.display = 'block'
+    }
+  }
+
+
+  function selecionar() {
+    
+    var pergunta1 = select_pergunta1.value;
+
+    var pergunta3 = select_pergunta3.value;
+    var pergunta4 = select_pergunta4.value;
+    var pergunta5 = select_pergunta5.value;
+    select_time.style.display = 'none'
+    div_corinthians.style.display = 'none'
+    div_palmeiras.style.display = 'none'
+    div_saopaulo.style.display = 'none'
+    div_santos.style.display = 'none'
+    div_vasco.style.display = 'none'
+    div_flamengo.style.display = 'none'
+    div_fluminense.style.display = 'none'
+    div_cruzeiro.style.display = 'none'
+    div_gremio.style.display = 'none'
+    div_internacional.style.display = 'none'
+
+    perguntas1_div.style.display = 'block'
+    select_pergunta1.style.display = 'block'
+
+  }
+  function proxima() {
+        select_time.style.display = 'none'
+
+    perguntas1_div.style.display = 'none'
+    select_pergunta1.style.display = 'none'
+    perguntas2_div.style.display = 'block'
+    select_pergunta2.style.display = 'block'
+
+  }
+  function proxima2() {
+    var pergunta2 = select_pergunta2.value;
+        select_time.style.display = 'none'
+
+    perguntas2_div.style.display = 'none'
+    select_pergunta2.style.display = 'none'
+    perguntas3_div.style.display = 'block'
+    select_pergunta3.style.display = 'block'
+
+  }
+  function proxima3() {
+    var pergunta3 = select_pergunta2.value;
+        select_time.style.display = 'none'
+
+    perguntas3_div.style.display = 'none'
+    select_pergunta3.style.display = 'none'
+    perguntas4_div.style.display = 'block'
+    select_pergunta4.style.display = 'block'
+
+  }
+  function proxima4() {
+    var pergunta4 = select_pergunta2.value;
+        select_time.style.display = 'none'
+
+    perguntas4_div.style.display = 'none'
+    select_pergunta4.style.display = 'none'
+    perguntas5_div.style.display = 'block'
+    select_pergunta5.style.display = 'block'
+    button_cadastro.style.display = 'block'
+
+  }
+  
+
+
+
+
+
+
+  function imgnav() {
+    window.location.href = 'index.html';
+  }
+
+
+  function cadastrar() {
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == ""
     ) {
       cardErro.innerHTML = `<p style="color: red;"> Todos os campos estão vazios</p>`
       finalizarAguardar();
       return false;
     }
 
-    
+
     if (!emailVar.includes("@") || !emailVar.includes(".")) {
       cardErro.innerHTML = `<p style="color: red;">Digite um e-mail válido.</p>`;
       finalizarAguardar();
@@ -133,32 +520,32 @@
         senhaServer: senhaVar
       })
     })
-    .then(async (res) => {
-      const ct = res.headers.get("content-type") || "";
-      const body = ct.includes("application/json") ? await res.json() : await res.text();
+      .then(async (res) => {
+        const ct = res.headers.get("content-type") || "";
+        const body = ct.includes("application/json") ? await res.json() : await res.text();
 
-      console.log("Status:", res.status);
-      console.log("Resposta do servidor:", body);
+        console.log("Status:", res.status);
+        console.log("Resposta do servidor:", body);
 
-      if (res.ok) {
+        if (res.ok) {
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          setTimeout(() => (window.location = "login.html"), 2000);
+          finalizarAguardar();
+        } else {
+          const msg = (body && (body.erro || body.error || body.message)) || body || `Erro ${res.status}`;
+          throw new Error(msg);
+        }
+      })
+      .catch((err) => {
+        console.error("#ERRO no fetch:", err);
         cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-        setTimeout(() => (window.location = "login.html"), 2000);
+        mensagem_erro.innerHTML = err.message || err;
         finalizarAguardar();
-      } else {
-        const msg = (body && (body.erro || body.error || body.message)) || body || `Erro ${res.status}`;
-        throw new Error(msg);
-      }
-    })
-    .catch((err) => {
-      console.error("#ERRO no fetch:", err);
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML = err.message || err;
-      finalizarAguardar();
-    });
+      });
 
     return false;
-}
+  }
 
   // Listando empresas cadastradas 
   // function listar() {
