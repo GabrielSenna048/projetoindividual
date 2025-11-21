@@ -6,11 +6,12 @@ async function autenticar(req, res) {
   try {
     const email = req.body.emailServer;
     const senha = req.body.senhaServer;
+    const time = req.body.timeServer;
 
     if (!email) return res.status(400).send("Seu email está undefined!");
     if (!senha) return res.status(400).send("Sua senha está indefinida!");
 
-    const resultado = await usuarioModel.autenticar(email, senha);
+    const resultado = await usuarioModel.autenticar(email, senha, time);
 
     if (resultado.length === 1) {
       const usuario = resultado[0];
@@ -18,7 +19,8 @@ async function autenticar(req, res) {
       return res.json({
         id: usuario.id,
         nome: usuario.nome,
-        email: usuario.email
+        email: usuario.email,
+        time: usuario.fkTime
       });
     } else {
       return res.status(403).send("Email e/ou senha inválido(s)");
@@ -36,13 +38,14 @@ async function cadastrar(req, res) {
     const nome = req.body.nomeServer;
     const email = req.body.emailServer;
     const senha = req.body.senhaServer;
+    const time = req.body.timeServer;
 
     if (nome == undefined) return res.status(400).send("Seu nome está undefined!");
     if (email == undefined) return res.status(400).send("Seu email está undefined!");
     if (senha == undefined) return res.status(400).send("Sua senha está undefined!");
+    if (time == undefined) return res.status(400).send("Seu time está undefined!");
 
-    
-    const resultado = await usuarioModel.cadastrar(nome, email, senha);
+    const resultado = await usuarioModel.cadastrar(nome, email, senha, time);
 
     return res.json(resultado);
 

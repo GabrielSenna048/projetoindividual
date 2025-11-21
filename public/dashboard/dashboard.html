@@ -144,56 +144,83 @@
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta) {
+  console.log('iniciando plotagem do gráfico...');
+  console.log('Dados recebidos:', resposta);
 
-        console.log('iniciando plotagem do gráfico...');
+  const rotulosTimes = [];
+  const valoresTimes = [];
 
-        // Criando estrutura para plotar gráfico - labels
-        var rotulosTimes = [];
-        var valoresTimes = [];
+  for (let i = 0; i < resposta.length; i++) {
+    const reg = resposta[i];
 
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: rotulosTimes,
-            datasets: [{
-                label: 'Quantidade de torcedores por time',
-                data: valoresTimes,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
+    // Prioriza o nome direto vindo da API (Time), senão tenta outros aliases
+    const nome = reg.Time ?? reg.Times ?? reg.nomeTime ?? reg.team ?? (`Time ${reg.idTime ?? i+1}`);
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+    // Prioriza QuantidadeTotal, depois outros aliases
+    const rawCount = reg.QuantidadeTotal ?? reg.quantidade ?? reg.count ?? 0;
+    const count = Number.isFinite(Number(rawCount)) ? Math.round(Number(rawCount)) : 0;
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            rotulosTimes.push(registro.Times);
-            valoresTimes.push(registro.QuantidadeTotal);
+    rotulosTimes.push(String(nome));
+    valoresTimes.push(count);
+  }
+
+  console.log('rotulosTimes:', rotulosTimes);
+  console.log('valoresTimes:', valoresTimes);
+
+  if (rotulosTimes.length === 0) {
+    document.getElementById('graficos').innerHTML = "<p style='color:#fff'>Nenhum dado de torcedores disponível.</p>";
+    return;
+  }
+
+  const maxVal = Math.max(...valoresTimes, 1);
+  const step = Math.max(1, Math.ceil(maxVal / 5));
+
+  const dados = {
+    labels: rotulosTimes,
+    datasets: [{
+      label: 'Quantidade de torcedores por time',
+      data: valoresTimes,
+      backgroundColor: rotulosTimes.map(() => 'rgba(75,192,192,0.85)'),
+      borderColor: 'rgb(75,192,192)',
+      borderWidth: 1
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: dados,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          ticks: { autoSkip: false, color: '#ffffff' },
+          title: { display: true, text: 'Times', color: '#ffffff' }
+        },
+        y: {
+          beginAtZero: true,
+          max: Math.ceil(maxVal / step) * step,
+          ticks: { stepSize: step, color: '#ffffff' },
+          title: { display: true, text: 'Quantidade de usuários', color: '#ffffff' }
         }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(rotulosTimes)
-        console.log('Dados:')
-        console.log(valoresTimes)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'bar',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`grafico_time`),
-            config
-        );
+      },
+      plugins: { legend: { display: false } }
     }
+  };
+
+  const canvas = document.getElementById('grafico_time');
+  if (!canvas) return console.error('Canvas grafico_time não encontrado');
+
+  if (canvas._chartInstance) {
+    try { canvas._chartInstance.destroy(); } catch (e) {}
+    canvas._chartInstance = null;
+  }
+
+  canvas.style.height = '500px';
+  const myChart = new Chart(canvas.getContext('2d'), config);
+  canvas._chartInstance = myChart;
+}
+
 
 
                 

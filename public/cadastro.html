@@ -65,8 +65,8 @@
           </div>
           <button onclick="mostrar()" class="botao-quiz">Seguinte</button>
           <button class="botao-quiz" onclick="voltar()">Voltar para o inicio</button>
-          
-          
+
+
         </div>
         <div id="div_aguardar" class="loading-div">
 
@@ -103,7 +103,7 @@
             <img src="css/imagens/escudo-Corinthians.webp" alt="">
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_palmeiras">
+          <div style="display: none;" id="div_palmeiras">
             <p>Fundado em 1914, o Palmeiras é um dos clubes mais bem-sucedidos do Brasil, com um grande número de
               títulos,
               incluindo a Copa Libertadores (2020, 2022). A rivalidade com o Corinthians é intensa, sendo um dos maiores
@@ -112,7 +112,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_saopaulo">
+          <div style="display: none;" id="div_saopaulo">
             <p>Fundado em 1930, o São Paulo é um dos clubes mais prestigiados do Brasil, com vários títulos nacionais e
               internacionais, incluindo a Copa Libertadores e o Mundial de Clubes. Seu estádio, o Morumbi, é um dos
               maiores
@@ -121,7 +121,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_santos">
+          <div style="display: none;" id="div_santos">
             <p>Fundado em 1912, o Santos é conhecido mundialmente por sua relação com Pelé, considerado o maior jogador
               de
               futebol de todos os tempos. O time possui uma das maiores torcidas do Brasil e uma rica história de
@@ -131,7 +131,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_vasco">
+          <div style="display: none;" id="div_vasco">
             <p>Fundado em 1898, o Vasco é um dos clubes de maior tradição do Brasil, com uma enorme torcida e várias
               conquistas nacionais, como o Campeonato Brasileiro. A rivalidade com Flamengo e Fluminense é intensa,
               especialmente no Rio de Janeiro.</p>
@@ -139,7 +139,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_flamengo">
+          <div style="display: none;" id="div_flamengo">
             <p>Fundado em 1895, o Flamengo é um dos clubes mais populares e vitoriosos do Brasil, com uma base de fãs
               espalhada por todo o país. O time tem uma rivalidade histórica com o Fluminense, Vasco e Botafogo, e já
               conquistou inúmeros títulos, incluindo a Copa Libertadores e o Mundial de Clubes.</p>
@@ -147,7 +147,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_fluminense">
+          <div style="display: none;" id="div_fluminense">
             <p>Fundado em 1902, o Fluminense é um dos clubes mais tradicionais do Brasil, com uma grande história no
               futebol. O time tem uma grande rivalidade com Flamengo e Vasco. O Fluminense é conhecido por seu estilo de
               jogo técnico e por suas grandes gerações de jogadores.</p>
@@ -155,7 +155,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_cruzeiro">
+          <div style="display: none;" id="div_cruzeiro">
             <p>Fundado em 1921, o Cruzeiro é um dos clubes mais vitoriosos de Minas Gerais e do Brasil. Com várias
               conquistas nacionais e internacionais, o Cruzeiro tem uma grande base de torcedores e rivaliza com times
               como
@@ -164,7 +164,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_gremio">
+          <div style="display: none;" id="div_gremio">
             <p>Fundado em 1903, o Grêmio é um dos clubes mais tradicionais do Brasil, com uma forte base de torcedores
               no
               sul do país. O time tem uma grande história de títulos nacionais e internacionais, incluindo a Copa
@@ -173,7 +173,7 @@
 
             <button class="div-times" onclick="selecionar()">Selecionar time</button>
           </div>
-          <div  style="display: none;" id="div_internacional">
+          <div style="display: none;" id="div_internacional">
             <p>Fundado em 1909, o Internacional, também conhecido como Inter, é um dos maiores clubes do sul do Brasil.
               Com
               várias conquistas nacionais e internacionais, incluindo a Copa Libertadores e o Mundial de Clubes, o time
@@ -226,7 +226,7 @@
 
           <div class="perguntas-quiz" id="perguntas5_div">
             <span>Já participou de algum programa de sócio-torcedor?</span>
-            <select class="div-times"  id="select_pergunta5">
+            <select class="div-times" id="select_pergunta5">
               <option selected disabled value="">Selecione uma opção</option>
               <option value="0">Não</option>
               <option value="20">Sim</option>
@@ -254,16 +254,16 @@
 </html>
 
 <script>
-  function voltar(){
+  function voltar() {
     window.location.href = 'index.html';
   }
-    function mostrar() {
+  function mostrar() {
     var select = select_time.value;
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-
+    timeEscolhido = select;
 
     if (
       nomeVar == "" ||
@@ -275,7 +275,7 @@
       finalizarAguardar();
       return false;
     }
-   
+
 
     div_formulario.style.display = 'none';
     select_time.style.display = 'block';
@@ -404,7 +404,7 @@
 
 
   function selecionar() {
-    
+
     var pergunta1 = select_pergunta1.value;
 
     var pergunta3 = select_pergunta3.value;
@@ -427,7 +427,7 @@
 
   }
   function proxima() {
-        select_time.style.display = 'none'
+    select_time.style.display = 'none'
 
     perguntas1_div.style.display = 'none'
     select_pergunta1.style.display = 'none'
@@ -437,7 +437,7 @@
   }
   function proxima2() {
     var pergunta2 = select_pergunta2.value;
-        select_time.style.display = 'none'
+    select_time.style.display = 'none'
 
     perguntas2_div.style.display = 'none'
     select_pergunta2.style.display = 'none'
@@ -447,7 +447,7 @@
   }
   function proxima3() {
     var pergunta3 = select_pergunta2.value;
-        select_time.style.display = 'none'
+    select_time.style.display = 'none'
 
     perguntas3_div.style.display = 'none'
     select_pergunta3.style.display = 'none'
@@ -457,7 +457,7 @@
   }
   function proxima4() {
     var pergunta4 = select_pergunta2.value;
-        select_time.style.display = 'none'
+    select_time.style.display = 'none'
 
     perguntas4_div.style.display = 'none'
     select_pergunta4.style.display = 'none'
@@ -466,7 +466,7 @@
     button_cadastro.style.display = 'block'
 
   }
-  
+
 
 
 
@@ -483,6 +483,7 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var timeEscolhidoVar = select_time.value;
 
 
     if (
@@ -517,7 +518,13 @@
       body: JSON.stringify({
         nomeServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar
+        senhaServer: senhaVar,
+        timeServer: timeEscolhidoVar,
+        p1: Number(select_pergunta1.value),
+        p2: Number(select_pergunta2.value),
+        p3: Number(select_pergunta3.value),
+        p4: Number(select_pergunta4.value),
+        p5: Number(select_pergunta5.value)
       })
     })
       .then(async (res) => {
