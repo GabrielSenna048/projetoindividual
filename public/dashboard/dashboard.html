@@ -8,7 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fifa | Dashboards</title>
 
-
   <link rel="stylesheet" href="./../css/dashboards.css">
   <link rel="stylesheet" href="./../css/estilo.css" />
   <script src="../js/sessao.js"></script>
@@ -19,14 +18,8 @@
     href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
 
-  <!-- scripts do Chart.js - 2022-1 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!--FONT AWESOME-->
-  <!-- <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script> -->
 </head>
-
-<!-- <body onload=" atualizarFeed()"> -->
 
 <body>
 
@@ -50,19 +43,16 @@
         </a>
       </div>
 
-
       <div class="btn-logout" onclick="limparSessao()">
         <h3>Sair</h3>
       </div>
 
     </div>
     <div class="dash">
-      <div id="alerta">
-      </div>
+      <div id="alerta"></div>
       <div class="area-parametros-alerta">
-        <p class="titulo-legenda">
-          Legenda - Parâmetros para Nível de torcedor:
-        </p>
+        <p class="titulo-legenda">Legenda - Parâmetros para Nível de torcedor:</p>
+
         <div class="parametros-alerta">
           <div class="item-regua perigo-frio">
             <p>Torcedor fraco</p>
@@ -88,16 +78,9 @@
       </div>
 
       <div class="dash">
-        <div id="alerta">
-        </div>
-
-        <div class="btns-dash" id="btnTorcedor">
-          <canvas id="grafico_time"></canvas>
-
-        </div>
-        <div id="graficos">
-        </div>
-        <div class="kpi-card">
+        <div id="alerta"></div>
+        <div class="kpi">
+           <div class="kpi-card">
           <h3>Média dos usuários</h3>
           <p id="kpi_media" class="kpi-value">--</p>
         </div>
@@ -106,13 +89,22 @@
           <h3>Seu nível</h3>
           <p id="kpi_usuario" class="kpi-value">--</p>
         </div>
+        </div>
+      <div class="legenda-grafico">
+         <h1>Gráfico dos times dos usuários cadastrados:</h1>
       </div>
-      <div class="kpi-container">
+       
 
-      </div>
+      
+        <div class="btns-dash" id="btnTorcedor">
+          <canvas id="grafico_time"></canvas>
+        </div>
 
+        <div id="graficos"></div>
+
+
+      
     </div>
-
 
 </body>
 
@@ -122,147 +114,120 @@
 
   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
- window.onload = function() {
-  obterDadosGrafico();
-  buscarMediaGeral();
-  buscarKpiUsuario();
-};
+  window.onload = function () {
+    obterDadosGrafico();
+    buscarMediaGeral();
+    buscarKpiUsuario();
+  };
 
 
-  // O gráfico é construído com três funções:
-  // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-  // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-  // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
 
-  // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-  // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-  // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+  // Grafico
 
-  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-  //     Para ajustar o "select", ajuste o comando sql em src/models
   function obterDadosGrafico() {
-
-    fetch(`/graficos/dadosTimes`, { cache: 'no-store' }).then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (resposta) {
-          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-          plotarGrafico(resposta);
-
-        });
-      } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-      }
-    })
+    fetch(`/graficos/dadosTimes`, { cache: 'no-store' })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (resposta) {
+            plotarGrafico(resposta);
+          });
+        } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
       .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        console.error('Erro na obtenção dos dados p/ gráfico: ' + error.message);
       });
   }
 
-  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-  // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-  function plotarGrafico(resposta) {
-    console.log('iniciando plotagem do gráfico...');
-    console.log('Dados recebidos:', resposta);
 
-    const rotulosTimes = [];
+
+
+  function plotarGrafico(resposta) {
+    const nomesTimes = [];
     const valoresTimes = [];
 
     for (let i = 0; i < resposta.length; i++) {
-      const reg = resposta[i];
+      let registro = resposta[i];
 
-      // Prioriza o nome direto vindo da API (Time), senão tenta outros aliases
-      const nome = reg.Time ?? reg.Times ?? reg.nomeTime ?? reg.team ?? (`Time ${reg.idTime ?? i + 1}`);
 
-      // Prioriza QuantidadeTotal, depois outros aliases
-      const rawCount = reg.QuantidadeTotal ?? reg.quantidade ?? reg.count ?? 0;
-      const count = Number.isFinite(Number(rawCount)) ? Math.round(Number(rawCount)) : 0;
+      const nome = registro.Time ?? registro.Times ?? registro.nomeTime ?? registro.team ?? (`Time ${registro.idTime ?? i + 1}`);
 
-      rotulosTimes.push(String(nome));
-      valoresTimes.push(count);
+
+      const valorBruto = registro.QuantidadeTotal ?? registro.quantidade ?? registro.valor ?? 0;
+      const valor = Number.isFinite(Number(valorBruto)) ? Math.round(Number(valorBruto)) : 0;
+
+      nomesTimes.push(String(nome));
+      valoresTimes.push(valor);
     }
 
-    console.log('rotulosTimes:', rotulosTimes);
-    console.log('valoresTimes:', valoresTimes);
-
-    if (rotulosTimes.length === 0) {
+    if (nomesTimes.length === 0) {
       document.getElementById('graficos').innerHTML = "<p style='color:#fff'>Nenhum dado de torcedores disponível.</p>";
       return;
     }
 
     const maxVal = Math.max(...valoresTimes, 1);
-    const step = Math.max(1, Math.ceil(maxVal / 5));
+    const passo = Math.max(1, Math.ceil(maxVal / 5));
 
     const dados = {
-      labels: rotulosTimes,
+      labels: nomesTimes,
       datasets: [{
         label: 'Quantidade de torcedores por time',
         data: valoresTimes,
-        backgroundColor: rotulosTimes.map(() => 'rgb(0, 0, 0))'),
-        borderColor: 'rgb(0, 0, 0)',
+        backgroundColor: nomesTimes.map(() => '#bdff7b'),
+        borderColor: '#bdff7b',
         borderWidth: 1
       }]
     };
 
-    const config = {
+    const configuracao = {
       type: 'bar',
       data: dados,
       options: {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: {
-            ticks: { autoSkip: false, color: '#ffffff' },
-            title: { display: true, text: 'Times', color: '#ffffff' }
-          },
-          y: {
-            beginAtZero: true,
-            max: Math.ceil(maxVal / step) * step,
-            ticks: { stepSize: step, color: '#ffffff' },
-            title: { display: true, text: 'Quantidade de usuários', color: '#ffffff' }
-          }
+          x: { ticks: { autoSkip: false, color: '#ffffff' }, title: { display: true, text: 'Times', color: '#ffffff' } },
+          y: { beginAtZero: true, max: Math.ceil(maxVal / passo) * passo, ticks: { stepSize: passo, color: '#ffffff' }, title: { display: true, text: 'Quantidade de usuários', color: '#ffffff' } }
         },
         plugins: { legend: { display: false } }
       }
     };
 
     const canvas = document.getElementById('grafico_time');
-    if (!canvas) return console.error('Canvas grafico_time não encontrado');
+    if (!canvas) return;
 
-    if (canvas._chartInstance) {
-      try { canvas._chartInstance.destroy(); } catch (e) { }
-      canvas._chartInstance = null;
+    if (canvas._graficoInstancia) {
+      try { canvas._graficoInstancia.destroy(); } catch (e) { }
+      canvas._graficoInstancia = null;
     }
 
     canvas.style.height = '500px';
-    const myChart = new Chart(canvas.getContext('2d'), config);
-    canvas._chartInstance = myChart;
+    const grafico = new Chart(canvas.getContext('2d'), configuracao);
+    canvas._graficoInstancia = grafico;
   }
 
-  // KPI'S
 
-
-
+  // KPI's
 
   function buscarMediaGeral() {
-  fetch("/usuarios/kpi/media")
-    .then(resp => {
-      if (!resp.ok) throw new Error("Erro na API média: " + resp.status);
-      return resp.json();
-    })
-    .then(json => {
-      console.log("Resposta KPI média:", json);
-      let valor = "--";
-      if (Array.isArray(json) && json.length > 0) valor = json[0].mediaNivel ?? json[0].media ?? "--";
-      else if (json && typeof json === 'object') valor = json.media ?? json.mediaNivel ?? "--";
-      document.getElementById("kpi_media").innerText = valor;
-    })
-    .catch(err => {
-      console.error("Erro buscarMediaGeral:", err);
-      document.getElementById("kpi_media").innerText = "--";
-    });
-}
+    fetch("/usuarios/kpi/media")
+      .then(resp => {
+        if (!resp.ok) throw new Error("Erro na API média: " + resp.status);
+        return resp.json();
+      })
+      .then(json => {
+        let valor = "--";
+        if (Array.isArray(json) && json.length > 0) valor = json[0].mediaNivel ?? json[0].media ?? "--";
+        else if (json && typeof json === 'object') valor = json.media ?? json.mediaNivel ?? "--";
+        document.getElementById("kpi_media").innerText = valor;
+      })
+      .catch(err => {
+        document.getElementById("kpi_media").innerText = "--";
+      });
+  }
+
+
 
 
   function buscarKpiUsuario() {
@@ -272,27 +237,18 @@
       return;
     }
 
-
     fetch(`/usuarios/kpiUsuario/${id}`)
       .then(resp => {
         if (!resp.ok) throw new Error("Erro na API kpi usuario: " + resp.status);
         return resp.json();
       })
       .then(json => {
-        console.log("Resposta da API:", json); // Verifique a estrutura aqui
         let nivel = json.nivelTorcedor ?? json.nivel ?? json.NIVEL ?? "--";
         document.getElementById("kpi_usuario").innerText = nivel;
       })
       .catch(err => {
-        console.error("Erro buscarKpiUsuario:", err);
         document.getElementById("kpi_usuario").innerText = "--";
       });
   }
-
-
-
-
-
-
 
 </script>

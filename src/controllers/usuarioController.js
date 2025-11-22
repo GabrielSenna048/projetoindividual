@@ -51,11 +51,11 @@ function salvarNivel(req, res) {
         });
 }
 
-// controllers/usuarioController.js
+
 function kpiMedia(req, res) {
   usuarioModel.kpiMedia()
     .then(resultado => {
-      // resultado pode vir como [ { mediaNivel: 42.50 } ] ou []
+     
       if (Array.isArray(resultado) && resultado.length > 0) {
         const media = resultado[0].mediaNivel ?? resultado[0].media ?? null;
         return res.status(200).json({ media: media });
@@ -65,14 +65,14 @@ function kpiMedia(req, res) {
     })
     .catch(erro => {
       console.error("Erro ao obter média (controller):", erro.sqlMessage ?? erro);
-      // Retorna JSON de erro com status 500 (não HTML)
+     
       return res.status(500).json({ error: erro.sqlMessage ?? String(erro) });
     });
 }
 
 
 function kpiUsuario(req, res) {
-    // aceita tanto /kpiUsuario/:id quanto /kpiUsuario/:idUsuario
+   
     const id = req.params.id ?? req.params.idUsuario;
     if (!id) {
         return res.status(400).json({ error: "id do usuário ausente na rota" });

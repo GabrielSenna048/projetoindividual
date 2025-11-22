@@ -19,7 +19,7 @@ function buscarTimes() {
 }
 
 function buscarDadosNivelTorcedor(id) {
-    // calcula média (assumindo que nivelTorcedor contenha valores numéricos em texto ou numéricos)
+    
     var instrucaoSql = `
         SELECT 
             ROUND(AVG(CAST(nivelTorcedor AS DECIMAL(10,2))), 2) AS mediaNivelTorcedor,

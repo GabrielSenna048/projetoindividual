@@ -12,6 +12,39 @@ CREATE TABLE timeFut (
   
 );
 select * from time;
+
+
+CREATE TABLE usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    email VARCHAR(100),
+    senha VARCHAR(50),
+    nivelTorcedor INT,
+     fkTime INT,
+   FOREIGN KEY (fkTime) REFERENCES timeFut(idTime)
+    
+);
+select * from usuario;
+
+
+select * from usuario
+join timeFut on fkTime = idTime;
+
+SELECT AVG(nivelTorcedor) AS mediaNivel
+        FROM usuario;
+              
+
+
+
+
+CREATE TABLE titulos(
+    idTitulo INT PRIMARY KEY,
+    nome VARCHAR(50),
+    ano DATE,
+    fkTimeTitulos INT,
+     FOREIGN KEY (fkTimeTitulos) REFERENCES timeFut(idTime)
+    );
+
 INSERT INTO timeFut (idTime, nomeTime, descricao) VALUES
 (1, 'Corinthians', 'Fundado em 1910, o Corinthians é um dos clubes mais populares e vitoriosos do Brasil, com uma vasta
               torcida.
@@ -52,37 +85,6 @@ INSERT INTO timeFut (idTime, nomeTime, descricao) VALUES
               várias conquistas nacionais e internacionais, incluindo a Copa Libertadores e o Mundial de Clubes, o time
               tem
               uma rivalidade forte com o Grêmio no clássico "Grenal"');
-
-
-CREATE TABLE usuario (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50),
-    email VARCHAR(100),
-    senha VARCHAR(50),
-    nivelTorcedor INT,
-     fkTime INT,
-   FOREIGN KEY (fkTime) REFERENCES timeFut(idTime)
-    
-);
-select * from usuario;
-
-
-select * from usuario
-join timeFut on fkTime = idTime;
-
-SELECT AVG(nivelTorcedor) AS mediaNivel
-        FROM usuario;
-              
-
-
-
-
-CREATE TABLE titulos(
-    idTitulo INT PRIMARY KEY,
-    nome VARCHAR(50),
-    ano DATE
-    );
-
 
 
 

@@ -121,20 +121,21 @@ body {
   position: relative;
   top: 0;
   left: 20%;
-   background-color: #bdff7b;
- 
+  background-color: #bdff7b;
+
   height: 100vh;
   overflow: auto;
 }
 
 .area-parametros-alerta {
-  /* border: 2px solid pink; */
+  
   display: flex;
   flex-direction: column;
   width: 70%;
   margin: auto;
-  margin-top: 10px;
-  background-color: #212124;
+  margin-top: 30px;
+  background-color: black;
+  border-radius: 20px;
 }
 
 .area-parametros-alerta .titulo-legenda {
@@ -163,31 +164,33 @@ body {
   margin: 0;
   font-weight: 500;
 }
-.parametros-alerta p{
+
+.parametros-alerta p {
   color: #fff;
 }
+
 .item-regua p:nth-child(2) {
   font-weight: 800;
 }
 
 .perigo-frio {
-   background-color: #161618;
+  background-color: #161618;
 }
 
 .perigo-quente {
-   background-color: #161618;
+  background-color: #161618;
 }
 
 .alerta-frio {
-   background-color: #161618;
+  background-color: #161618;
 }
 
 .alerta-quente {
-   background-color: #161618;
+  background-color: #161618;
 }
 
 .ideal {
-   background-color: #161618;
+  background-color: #161618;
 }
 
 .cards {
@@ -263,14 +266,7 @@ body {
   display: inline-block;
 }
 
-.btns-dash {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-  flex-wrap: wrap;
-  padding: 0 30% 0 30%;
-}
+
 
 .graph {
   width: 70%;
@@ -334,7 +330,7 @@ canvas {
 .janela {
   display: flex;
   /* width: 100vw; */
- 
+
 }
 
 .header-left a {
@@ -353,7 +349,6 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-right: 3px solid #32b9cd;
   background-color: #212124;
 }
 
@@ -373,7 +368,7 @@ canvas {
   height: 50px;
   width: 70px;
   margin-bottom: 5px;
-  
+
 }
 
 .hello {
@@ -402,7 +397,7 @@ canvas {
 }
 
 .btn-nav-white {
-cursor: pointer;
+  cursor: pointer;
   font-family: "Barlow", sans-serif;
   border: 0;
   border-radius: 10px;
@@ -414,25 +409,25 @@ cursor: pointer;
   height: 60px;
   display: flex;
   justify-content: center;
- 
+
 }
 
 .btn-nav-white h3 {
-  color:white;
-   margin-top: 20px;
- 
+  color: white;
+  margin-top: 20px;
+
 }
 
 .btn-nav h3,
 .btn-logout h3 {
-  
+
   padding: 14px;
   align-self: center;
   margin-left: 9px;
 }
 
 .btn-logout {
- cursor: pointer;
+  cursor: pointer;
   font-family: "Barlow", sans-serif;
   border: 0;
   border-radius: 10px;
@@ -442,40 +437,76 @@ cursor: pointer;
   background-color: black;
   width: 90px;
   height: 60px;
-  
+
 }
 
-/* Grafico 1 - Times */
-
-  #grafico_time {
-         background-color: #161618;
-        border-radius: 20px;
-        backdrop-filter: blur(5px);
-        padding: 20px;
-        
-        
-      
-      }
-
-      /* KPI´S */
-      .kpi-container {
+/* Grafico 1  */
+.legenda-grafico{
     display: flex;
-    gap: 70px;
-    justify-content: flex-start;
-    
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  margin-top: 30px;
+  background-color: black;
+  border-radius: 10px;
+  margin-left: 100px;
+}
+.legenda-grafico h1{
+  margin-top: 30px;
+  color: white;
+  padding: 10px;
+  align-self: center;
+ margin-bottom: 5px;
+} 
+#grafico_time {
+  background-color: #161618;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  
+
+
+
+}
+
+.btns-dash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  height: 500px;
+  margin-right: 90px;
+
+}
+
+/* KPI´S */
+
+
+.kpi{
+  display: flex;
+  margin-top: 20px;
+  gap: 50px;
+}
+.kpi-container {
+  display: flex;
+  gap: 70px;
+  justify-content: space-between;
+
 }
 
 .kpi-card {
-     background-color: #161618;
-    padding: 20px;
-    border-radius: 15px;
-    width: 180px;
-    text-align: center;
-    color: #fff;
-    backdrop-filter: blur(5px);
+  background-color: #161618;
+  padding: 20px;
+  border-radius: 15px;
+  width: 180px;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(5px);
+
 }
 
 .kpi-value {
-    font-size: 32px;
-    font-weight: bold;
+  font-size: 32px;
+  font-weight: bold;
 }
