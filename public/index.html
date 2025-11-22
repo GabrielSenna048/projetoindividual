@@ -18,8 +18,8 @@
       <ul class="navbar">
         <li><img src="css/imagens/FIFA-Logo.png" alt=""></li>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="#quiz">Quiz</a></li>
-        <li><a href="#sobre">Sobre mim</a></li>
+        <li><a href="#game">Game</a></li>
+        <li><a href="#sobre">Sobre o jogo</a></li>
         <li><a href="cadastro.html">Cadastro</a></li>
         <li><a href="login.html">Login</a></li>
         <li><button id="omsbutton_button" onclick="oms()" class="button-ods">O.D.S</button></li>
@@ -71,18 +71,39 @@
     <h1>Minha história com o FIFA</h1>
     <div class="container-sobre">
       <span>
-        Minha história com o FIFA começou quando eu tinha apenas 6 anos, lá no FIFA 13... <br><br>
-        Hoje, posso dizer que o FIFA não é só um jogo — é parte da minha história e da minha paixão pelo
-        <strong>Corinthians</strong>.
+        Minha história com o FIFA começou quando eu tinha apenas 6 anos, lá no FIFA 13. Naquela época, eu nem entendia
+        muito bem sobre táticas, formações ou ratings eu só queria jogar, me divertir e viver aquela magia que o jogo
+        sempre teve. Cada partida era uma descoberta, cada gol parecia uma final de campeonato, e cada nova edição era
+        como abrir um presente que eu esperava o ano inteiro.
+         <br><br>
+        Com o tempo, fui crescendo, e o FIFA cresceu comigo. Aprendi a montar times, a entender melhor o futebol real, a
+        me apaixonar por detalhes que antes passavam despercebidos. E junto dessa evolução veio também algo ainda mais
+        forte: a ligação com o Corinthians.
+         <br><br>
+        Hoje, posso dizer que FIFA não é apenas um jogo. Ele é parte da minha história, das minhas memórias e da minha
+        paixão pelo Timão. Foi dentro dele que vivi partidas épicas, comemorei títulos imaginários e representei o
+        Corinthians em cada drible, chute e gol.
+         <br><br>
+        O FIFA deixou de ser só diversão virou uma experiência que carrega emoção, nostalgia e orgulho. E, de certa
+        forma, me fez amar ainda mais o futebol e o Corinthians. Cada edição que passou foi como mais um capítulo da
+        minha própria trajetória com o esporte..
       </span>
       <img class="container-sobre-img" src="css/imagens/fc26.webp" alt="EA Sports FC 26">
     </div>
 
     <div id="corinthians" class="corinthians">
       <p>
-        O <strong>Corinthians</strong> é uma das minhas maiores paixões. Tudo começou quando meu tio me levou ao
-        estádio... <br><br>
-        Acompanhar o Timão é viver emoções únicas — seja no campo ou no FIFA.
+        O Corinthians é uma das minhas maiores paixões. Tudo começou quando meu tio me levou ao estádio
+        pela primeira vez um momento simples, mas que mudou tudo. O barulho da torcida, as bandeiras tremulando, a
+        vibração a cada ataque… ali eu percebi que não era só futebol. Era sentimento, era família, era paixão de
+        verdade.
+
+        <br><br>
+
+        Acompanhar o Timão é viver emoções únicas, seja no campo ou no FIFA. No estádio, é o grito preso na garganta até
+        a bola entrar. No videogame, é a chance de reviver essas emoções, de controlar cada jogada e sentir novamente a
+        energia que só o Corinthians proporciona. Nos dois casos, o coração sempre bate diferente porque ser
+        Corinthians é sentir, é acreditar, é viver intensamente.
       </p>
       <img class="container-sobre-img2" src="css/imagens/corinthians_em_widescreen_e_alta_definicao_tw_1600x900.jpg"
         alt="Torcida do Corinthians">
@@ -91,18 +112,72 @@
   </div>
 
   <!-- Inicio game -->
-   <div class="header-game">
+  <div id="game" class="header-game">
     <div class="container-game">
+      <h1>Game de Fifa</h1>
+      <p>Acerte pelo menos 3 jogadores que estiveram na capa do fifa desde 2020 </p>
+      <input id="nomeJogador_input" type="text">
 
+      <button class="botao-game" onclick="game()">Tentar</button>
+      <div id="div_game"></div>
     </div>
-   </div>
- 
+  </div>
+  <p style="color: green;"></p>
 
 </body>
 
 </html>
 <script>
- 
+
+  var contador = 3;
+  var lista = [
+    'Messi',
+    'Mbappé',
+    'Hazard',
+    'Van Dijk',
+    'Haaland',
+    'Sam Kerr',
+    'Musiala',
+    'Bellingham',
+  ];
+
+
+  function game() {
+    var nome = nomeJogador_input.value.trim().toLowerCase();
+
+
+    var mensagem = '';
+    var acertou = false;
+
+    for (var i = 0; i < lista.length; i++) {
+      var jogadorLista = lista[i].toLowerCase();
+      if (nome == jogadorLista) {
+        lista.splice(i, 1);
+        acertou = true;
+        mensagem = `<p style="color: green;">Você acertou um!</p>`;
+      }
+    }
+
+    if (!acertou) {
+      contador--;
+      mensagem = `<p style="color: red;">Você errou! Restam ${contador} tentativa(s).</p>`;
+    }
+
+    if (contador <= 0) {
+      nomeJogador_input.style.display = 'none';
+      mensagem = `<p style="color: red;">Suas tentativas acabaram!</p>`;
+    }
+
+    if (lista.length <= 3) {
+      alert('Parabéns! Você acertou 3 de 6 jogadores que já apareceram na capa do FIFA desde 2020');
+    }
+
+    div_game.innerHTML = mensagem;
+    nomeJogador_input.value = '';
+  }
+
+
+
 
 
   function oms() {
