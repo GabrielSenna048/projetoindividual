@@ -256,16 +256,16 @@ font-size: 30px;
 .header-game{
 height: 800px;
 width: 100%;
- 
+
 }
 .container-game{
   display: flex;
-  flex-direction: column;   /* um abaixo do outro */
-  align-items: center;      /* centraliza horizontalmente */
-  text-align: center;       /* centraliza textos */
-  gap: 15px;                /* espaço entre os itens */
+  flex-direction: column;   
+  align-items: center;      
+  text-align: center;       
+  gap: 15px;                
   margin-top: 40px; 
- background-color: white;
+  background-color: #bdffbd;
   border: #000 10px solid;
   height: 100%;
   border-radius: 10px;

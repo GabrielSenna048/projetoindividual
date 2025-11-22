@@ -185,7 +185,7 @@
           </div>
           <div class="perguntas-quiz" id="perguntas1_div">
             <span>Vai ao estádio do seu time uma vez ao mês?</span>
-            <select class="div-times" onclick="proxima()" id="select_pergunta1">
+            <select class="div-times" onchange="proxima()" id="select_pergunta1">
               <option selected disabled value="">Selecione uma opção</option>
               <option value="0">Não</option>
               <option value="20">Sim</option>
@@ -196,7 +196,7 @@
 
           <div class="perguntas-quiz" id="perguntas2_div">
             <span>Segue jogadores ou clubes nas redes sociais?</span>
-            <select class="div-times" onclick="proxima2()" id="select_pergunta2">
+            <select class="div-times" onchange="proxima2()" id="select_pergunta2">
               <option selected disabled value="">Selecione uma opção</option>
               <option value="0">Não</option>
               <option value="20">Sim</option>
@@ -206,7 +206,7 @@
 
           <div class="perguntas-quiz" id="perguntas3_div">
             <span>Assiste aos jogos do seu time toda semana?</span>
-            <select class="div-times" onclick="proxima3()" id="select_pergunta3">
+            <select class="div-times" onchange="proxima3()" id="select_pergunta3">
               <option selected disabled value="">Selecione uma opção</option>
               <option value="0">Não</option>
               <option value="20">Sim</option>
@@ -216,7 +216,7 @@
 
           <div class="perguntas-quiz" id="perguntas4_div">
             <span>Já fez parte de alguma torcida organizada?</span>
-            <select class="div-times" onclick="proxima4()" id="select_pergunta4">
+            <select class="div-times" onchange="proxima4()" id="select_pergunta4">
               <option selected disabled value="">Selecione uma opção</option>
               <option value="0">Não</option>
               <option value="20">Sim</option>
@@ -257,6 +257,8 @@
   function voltar() {
     window.location.href = 'index.html';
   }
+
+
   function mostrar() {
     var select = select_time.value;
     var nomeVar = nome_input.value;
@@ -478,103 +480,144 @@
   }
 
 
-  function cadastrar() {
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var timeEscolhidoVar = select_time.value;
+ function cadastrar() {
+  var nomeVar = nome_input.value;
+  var emailVar = email_input.value;
+  var senhaVar = senha_input.value;
+  var confirmacaoSenhaVar = confirmacao_senha_input.value;
+  var timeEscolhidoVar = select_time.value;
+   // calcula a pontuação (usa sua função existente)
+const pontuacaoFinal = calcularPontuacaoFinal(); // <-- certifique-se que essa função existe
+
+fetch("/usuarios/cadastrar", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    nomeServer: nomeVar,
+    emailServer: emailVar,
+    senhaServer: senhaVar,
+    timeServer: Number(timeEscolhidoVar), 
+    p1: Number(select_pergunta1.value),
+    p2: Number(select_pergunta2.value),
+    p3: Number(select_pergunta3.value),
+    p4: Number(select_pergunta4.value),
+    p5: Number(select_pergunta5.value),
+    nivel: Number(pontuacaoFinal) 
+  })
+})
+.then(async (res) => {
+  const ct = res.headers.get("content-type") || "";
+  const body = ct.includes("application/json") ? await res.json() : await res.text();
+
+  if (res.ok) {
+    mensagem_erro.innerHTML = "Cadastro realizado! Redirecionando...";
+    setTimeout(() => (window.location = "login.html"), 2000);
+  } else {
+    throw new Error(typeof body === "string" ? body : JSON.stringify(body));
+  }
+})
+.catch((err) => {
+  mensagem_erro.innerHTML = err.message || err;
+});
 
 
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-    ) {
-      cardErro.innerHTML = `<p style="color: red;"> Todos os campos estão vazios</p>`
-      finalizarAguardar();
-      return false;
-    }
-
-
-    if (!emailVar.includes("@") || !emailVar.includes(".")) {
-      cardErro.innerHTML = `<p style="color: red;">Digite um e-mail válido.</p>`;
-      finalizarAguardar();
-      return false;
-    }
-
-    if (senhaVar !== confirmacaoSenhaVar) {
-      cardErro.innerHTML = `<p style="color: red;">As senhas não coincidem.</p>`;
-      finalizarAguardar();
-      return false;
-    }
-
-    alert('Dados cadastrados com sucesso');
-
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        timeServer: timeEscolhidoVar,
-        p1: Number(select_pergunta1.value),
-        p2: Number(select_pergunta2.value),
-        p3: Number(select_pergunta3.value),
-        p4: Number(select_pergunta4.value),
-        p5: Number(select_pergunta5.value)
-      })
-    })
-      .then(async (res) => {
-        const ct = res.headers.get("content-type") || "";
-        const body = ct.includes("application/json") ? await res.json() : await res.text();
-
-        console.log("Status:", res.status);
-        console.log("Resposta do servidor:", body);
-
-        if (res.ok) {
-          cardErro.style.display = "block";
-          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-          setTimeout(() => (window.location = "login.html"), 2000);
-          finalizarAguardar();
-        } else {
-          const msg = (body && (body.erro || body.error || body.message)) || body || `Erro ${res.status}`;
-          throw new Error(msg);
-        }
-      })
-      .catch((err) => {
-        console.error("#ERRO no fetch:", err);
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = err.message || err;
-        finalizarAguardar();
-      });
-
+  if (
+    nomeVar == "" ||
+    emailVar == "" ||
+    senhaVar == "" ||
+    confirmacaoSenhaVar == ""
+  ) {
+    cardErro.innerHTML = `<p style="color: red;">Todos os campos devem ser preenchidos</p>`;
     return false;
   }
 
-  // Listando empresas cadastradas 
-  // function listar() {
-  //   fetch("/empresas/listar", {
-  //     method: "GET",
-  //   })
-  //     .then(function (resposta) {
-  //       resposta.json().then((empresas) => {
-  //         empresas.forEach((empresa) => {
-  //           listaEmpresasCadastradas.push(empresa);
+  if (!emailVar.includes("@") || !emailVar.includes(".")) {
+    cardErro.innerHTML = `<p style="color: red;">Digite um e-mail válido.</p>`;
+    return false;
+  }
 
-  //           console.log("listaEmpresasCadastradas")
-  //           console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-  //         });
-  //       });
-  //     })
-  //     .catch(function (resposta) {
-  //       console.log(`#ERRO: ${resposta}`);
-  //     });
-  // }
+  if (senhaVar !== confirmacaoSenhaVar) {
+    cardErro.innerHTML = `<p style="color: red;">As senhas não coincidem.</p>`;
+    return false;
+  }
 
-  // function sumirMensagem() {
-  //   cardErro.style.display = "none";
-  // }
+ 
+
+
+}
+
+
+
+
+  // calcula e retorna pontuação final (sem side-effects)
+function calcularPontuacaoFinal() {
+  const total =
+    Number(select_pergunta1.value) +
+    Number(select_pergunta2.value) +
+    Number(select_pergunta3.value) +
+    Number(select_pergunta4.value) +
+    Number(select_pergunta5.value);
+
+  return total;
+}
+
+// salva no backend (retorna a Promise)
+function salvarNivel() {
+  const pontuacao = calcularPontuacaoFinal();
+  const id = sessionStorage.ID_USUARIO;
+
+  fetch("/usuarios/salvarNivel", {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      idUsuario: id,
+      nivel: pontuacao   // <-- AGORA ESTÁ CORRETO
+    })
+  })
+  .then(res => res.json())
+  .then(console.log)
+  .catch(console.error);
+}
+
+
+// fluxo final: calcula → salva → atualiza KPIs (exemplo)
+function finalizarQuizEAtualizar() {
+  const pontuacaoFinal = calcularPontuacaoFinal();
+  console.log("Pontuação final:", pontuacaoFinal);
+
+  // Salva e, em seguida, solicita as KPIs atualizadas
+  salvarNivel(pontuacaoFinal)
+    .then(respSalvar => {
+      console.log("Nivel salvo:", respSalvar);
+
+      // atualizar média geral
+      return fetch("/usuarios/kpi/media");
+    })
+    .then(resMedia => {
+      if (!resMedia.ok) throw new Error("Erro na API média: " + resMedia.status);
+      return resMedia.json();
+    })
+    .then(dadosMedia => {
+      console.log("Média de nível geral:", dadosMedia[0]?.mediaNivel ?? dadosMedia.media ?? dadosMedia);
+      // atualizar KPI na tela, ex:
+      const mediaValor = dadosMedia[0]?.mediaNivel ?? dadosMedia.media ?? "--";
+      document.getElementById("kpi_media").innerText = mediaValor;
+      // agora buscar nível do usuário
+      return fetch(`/usuarios/kpi/usuario/${sessionStorage.ID_USUARIO}`);
+    })
+    .then(resUsuario => {
+      if (!resUsuario.ok) throw new Error("Erro na API kpi usuario: " + resUsuario.status);
+      return resUsuario.json();
+    })
+    .then(dadosUsuario => {
+      const nivel = dadosUsuario[0]?.nivelTorcedor ?? dadosUsuario.nivelTorcedor ?? dadosUsuario.nivel ?? "--";
+      console.log("Seu nível:", nivel);
+      document.getElementById("kpi_usuario").innerText = nivel;
+    })
+    .catch(err => {
+      console.error("Erro no fluxo de salvar/atualizar KPIs:", err);
+    });
+}
+
+
 </script>

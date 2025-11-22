@@ -13,6 +13,7 @@ body {
   justify-content: center;
 }
 
+
 .dash-right .avisos {
   width: 100%;
   color: rgb(216, 216, 216);
@@ -120,7 +121,8 @@ body {
   position: relative;
   top: 0;
   left: 20%;
-  background-color: #161618;
+   background-color: #bdff7b;
+ 
   height: 100vh;
   overflow: auto;
 }
@@ -161,29 +163,31 @@ body {
   margin: 0;
   font-weight: 500;
 }
-
+.parametros-alerta p{
+  color: #fff;
+}
 .item-regua p:nth-child(2) {
   font-weight: 800;
 }
 
 .perigo-frio {
-  background-color: #5c6bc0;
+   background-color: #161618;
 }
 
 .perigo-quente {
-  background-color: #ff7043;
+   background-color: #161618;
 }
 
 .alerta-frio {
-  background-color: #42a5f5;
+   background-color: #161618;
 }
 
 .alerta-quente {
-  background-color: #ffee58;
+   background-color: #161618;
 }
 
 .ideal {
-  background-color: #9ccc65;
+   background-color: #161618;
 }
 
 .cards {
@@ -330,6 +334,7 @@ canvas {
 .janela {
   display: flex;
   /* width: 100vw; */
+ 
 }
 
 .header-left a {
@@ -364,8 +369,11 @@ canvas {
   overflow: auto;
 }
 
-.header-left h1 {
-  color: #32b9cd;
+.header-left img {
+  height: 50px;
+  width: 70px;
+  margin-bottom: 5px;
+  
 }
 
 .hello {
@@ -375,7 +383,7 @@ canvas {
 }
 
 .hello h3 {
-  color: #e3b062;
+  color: white;
   font-weight: 300;
   font-size: 1.2rem;
 }
@@ -394,43 +402,53 @@ canvas {
 }
 
 .btn-nav-white {
-  width: 40%;
-  background-color: white;
-  border: 3px solid #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
+cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background-color: black;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+ 
 }
 
 .btn-nav-white h3 {
-  color: #e6005a;
-  padding: 0;
-  margin: 0;
+  color:white;
+   margin-top: 20px;
+ 
 }
 
 .btn-nav h3,
 .btn-logout h3 {
-  margin: 0;
-  padding: 0;
+  
+  padding: 14px;
+  align-self: center;
+  margin-left: 9px;
 }
 
 .btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
-  background-color: #32b9cd;
-  color: white;
+ cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
   border-radius: 10px;
-  text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 100px;
-  cursor: pointer;
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  background-color: black;
+  width: 90px;
+  height: 60px;
+  
 }
 
 /* Grafico 1 - Times */
 
   #grafico_time {
-        background-color: green;
+         background-color: #161618;
         border-radius: 20px;
         backdrop-filter: blur(5px);
         padding: 20px;
@@ -438,3 +456,26 @@ canvas {
         
       
       }
+
+      /* KPI´S */
+      .kpi-container {
+    display: flex;
+    gap: 70px;
+    justify-content: flex-start;
+    
+}
+
+.kpi-card {
+     background-color: #161618;
+    padding: 20px;
+    border-radius: 15px;
+    width: 180px;
+    text-align: center;
+    color: #fff;
+    backdrop-filter: blur(5px);
+}
+
+.kpi-value {
+    font-size: 32px;
+    font-weight: bold;
+}

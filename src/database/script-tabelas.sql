@@ -58,7 +58,7 @@ CREATE TABLE usuario (
     nome VARCHAR(50),
     email VARCHAR(100),
     senha VARCHAR(50),
-    nivelTorcedor VARCHAR(300),
+    nivelTorcedor INT,
      fkTime INT,
    FOREIGN KEY (fkTime) REFERENCES timeFut(idTime)
     

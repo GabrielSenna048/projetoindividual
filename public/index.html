@@ -122,7 +122,7 @@
       <div id="div_game"></div>
     </div>
   </div>
-  <p style="color: green;"></p>
+
 
 </body>
 
@@ -163,7 +163,7 @@
       mensagem = `<p style="color: red;">Você errou! Restam ${contador} tentativa(s).</p>`;
     }
 
-    if (contador <= 0) {
+    if (contador == 0) {
       nomeJogador_input.style.display = 'none';
       mensagem = `<p style="color: red;">Suas tentativas acabaram!</p>`;
     }

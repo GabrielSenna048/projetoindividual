@@ -4,6 +4,7 @@ CREATE DATABASE fifa;
 USE fifa;
 drop database fifa;
 
+
 CREATE TABLE timeFut (
    idTime INT PRIMARY KEY,
    nomeTime VARCHAR(45),
@@ -58,17 +59,19 @@ CREATE TABLE usuario (
     nome VARCHAR(50),
     email VARCHAR(100),
     senha VARCHAR(50),
-    nivelTorcedor VARCHAR(300),
+    nivelTorcedor INT,
      fkTime INT,
    FOREIGN KEY (fkTime) REFERENCES timeFut(idTime)
     
 );
 select * from usuario;
 
+
 select * from usuario
 join timeFut on fkTime = idTime;
 
-             
+SELECT AVG(nivelTorcedor) AS mediaNivel
+        FROM usuario;
               
 
 
