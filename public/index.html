@@ -168,8 +168,11 @@
       mensagem = `<p style="color: red;">Suas tentativas acabaram!</p>`;
     }
 
-    if (lista.length <= 3) {
-      alert('Parabéns! Você acertou 3 de 6 jogadores que já apareceram na capa do FIFA desde 2020');
+    if (lista.length == 5) {
+      alert('Parabéns! Você acertou 3 de 8 jogadores que já apareceram na capa do FIFA desde 2020');
+    }
+     if (lista.length == 0 ) {
+      alert('Parabéns! Você acertou 8 de 8 jogadores que já apareceram na capa do FIFA desde 2020');
     }
 
     div_game.innerHTML = mensagem;

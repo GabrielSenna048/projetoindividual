@@ -1,6 +1,6 @@
 var graficosModel = require("../models/graficosModel");
 
-// Gráficos
+
 function buscarTimes(req, res) {
     graficosModel.buscarTimes().then(function (resultado) {
         if (resultado.length > 0) {
@@ -31,7 +31,7 @@ function buscarDadosNivelTorcedor(req, res) {
     });
 }
 
-// KPIs
+
 function buscarNivelTorcedor(req, res) {
     var id = req.params.id;
     console.log('Recuperando medidas em tempo real');

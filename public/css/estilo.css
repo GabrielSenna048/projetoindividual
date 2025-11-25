@@ -227,6 +227,7 @@ font-size: 30px;
 }
 
 .container-sobre-img {
+  border-radius: 10px;
   border: #000 solid 5px;
   width: 50%;
 }
@@ -234,6 +235,7 @@ font-size: 30px;
 .container-sobre-img2 {
   border: #000 solid 5px;
   width: 50%;
+  border-radius: 10px;
 }
 
 .corinthians {
@@ -453,7 +455,7 @@ width: 100%;
 
 input {
   margin-bottom: 10px;
-  border: 2px solid #32b9cd;
+  border: 2px solid #bdffbd;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
